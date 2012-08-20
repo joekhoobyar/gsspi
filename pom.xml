@@ -79,14 +79,26 @@
   				<artifactId>maven-release-plugin</artifactId>
   				<version>2.3.2</version>
   				<configuration>
-  					<localCheckout>true</localCheckout>
-  					<pushChanges>false</pushChanges>
-			  		<preparationGoals>clean install</preparationGoals>
+	  				<localCheckout>true</localCheckout>
+	  				<pushChanges>false</pushChanges>
+				  	<preparationGoals>clean install</preparationGoals>
+					<useReleaseProfile>true</useReleaseProfile>
   				</configuration>
   			</plugin>
   		</plugins>
   	</pluginManagement>
   </build>
+  <profiles>
+  	<profile>
+      <id>release-profile</id>
+      <distributionManagement>
+	    <repository>
+	      <id>local-releases</id>
+	      <url>file:///${basedir}/../../../maven-repo/releases/</url>
+	    </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
   <dependencies>
   	<dependency>
   		<groupId>net.java.dev.jna</groupId>
