@@ -18,12 +18,12 @@
   </scm>
   <distributionManagement>
     <snapshotRepository>
-      <id>local-releases</id>
-      <url>file:///${basedir}/../maven-repo/releases/</url>
-    </snapshotRepository>
-    <repository>
       <id>local-snapshots</id>
       <url>file:///${basedir}/../maven-repo/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>local-releases</id>
+      <url>file:///${basedir}/../maven-repo/releases/</url>
     </repository>
   </distributionManagement>
   <repositories>
@@ -80,8 +80,6 @@
   		<artifactId>jna</artifactId>
   		<version>${jna.version}</version>
   		<classifier>platform</classifier>
-  		<!-- 
-  		 -->
   	</dependency>
   	<dependency>
   		<groupId>commons-logging</groupId>
