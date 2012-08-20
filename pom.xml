@@ -18,6 +18,17 @@
 	<developerConnection>scm:git:git@github.com:joekhoobyar/gsspi.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
+  <developers>
+    <developer>
+      <id>jkhoobyar</id>
+      <email>joe@khoobyar.name</email>
+      <name>Joe Khoobyar</name>
+      <roles>
+        <role>developer</role>
+        <role>maintainer</role>
+      </roles>
+    </developer>
+  </developers>
   <distributionManagement>
     <snapshotRepository>
       <id>local-snapshots</id>
