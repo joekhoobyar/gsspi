@@ -98,6 +98,33 @@
       	  <value>true</value>
       	</property>
       </activation>
+      <build>
+      	<plugins>
+      		<plugin>
+      			<groupId>org.codehaus.mojo</groupId>
+      			<artifactId>exec-maven-plugin</artifactId>
+      			<version>1.2.1</version>
+      			<executions>
+      				<execution>
+			            <id>deploy-exec</id>
+			            <phase>deploy</phase>
+			            <goals>
+			              <goal>exec</goal>
+			            </goals>
+			            <configuration>
+						    <workingDirectory>file:///${basedir}/../../../maven-repo/releases/</workingDirectory>
+			            	<executable>sh</executable>
+			            	<arguments>
+			            		<argument>update-directory-index.sh</argument>
+			            		<argument>--sync</argument>
+			            		<argument>--verbose</argument>
+			            	</arguments>
+			            </configuration>
+			          </execution>
+      			</executions>
+      		</plugin>
+      	</plugins>
+      </build>
       <distributionManagement>
 	    <repository>
 	      <id>local-releases</id>
