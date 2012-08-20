@@ -1,10 +1,13 @@
 package name.khoobyar.joe.gsspi.win32;
 
+import java.util.Collections;
+
 import name.khoobyar.joe.httpclient.NullCredentials;
 import name.khoobyar.joe.httpclient.SspiSpnegoScheme;
 
 import org.apache.http.auth.AuthScheme;
 import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.params.AuthPNames;
 import org.apache.http.client.params.AuthPolicy;
 import org.apache.http.impl.auth.SPNegoSchemeFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -28,8 +31,9 @@ public class RunHttpSpnegoHTTPClient
 			}
         });
         
-        // Setup empty credentials and auth scope.
-        client.getCredentialsProvider ().setCredentials(new AuthScope (null, -1, null), new NullCredentials ());		
+        // Configure authentication and credentials.
+        client.getCredentialsProvider ().setCredentials(new AuthScope (null, -1, null), new NullCredentials ());
+        client.getParams ().setParameter (AuthPNames.TARGET_AUTH_PREF, Collections.singletonList (AuthPolicy.SPNEGO));
         
 		return client;
 	}

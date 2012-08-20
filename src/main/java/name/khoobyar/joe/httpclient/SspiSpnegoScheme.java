@@ -14,6 +14,7 @@ public class SspiSpnegoScheme
 	extends SPNegoScheme
 	implements AuthScheme
 {
+	private String securityPackageName = "Negotiate";
     private String servicePrincipalName;
     private CredHandle hCredentials;
     private CtxtHandle hContext;
@@ -30,12 +31,11 @@ public class SspiSpnegoScheme
 			dispose ();
 		
 		if (! initialized) {
-	        servicePrincipalName = SspiUtils.getServicePrincipalName ("http", authServer);
+	        servicePrincipalName = SspiUtils.getServicePrincipalName ("HTTP", authServer);
 	        hContext = new CtxtHandle ();
-	        hCredentials = SspiUtils.getCurrentUserCredentials ("Kerberos", SECPKG_CRED_OUTBOUND, null);
+	        hCredentials = SspiUtils.getCurrentUserCredentials (securityPackageName, SECPKG_CRED_OUTBOUND, null);
 	        initialized = true;
 		}
-		System.err.println ("generateToken for "+servicePrincipalName);
         return SspiUtils.initSecurityContext (hCredentials, hContext, null, 0, true, input, null, null);
 	}
 	
