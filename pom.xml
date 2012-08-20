@@ -115,28 +115,36 @@
 				<artifactId>maven-nar-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<gnuUseOnWindows>true</gnuUseOnWindows>
-				    <cpp>
-				      <debug>true</debug>
-				    </cpp>
-				    <libraries>
-				      <library>
-				        <type>jni</type>
-				        <!--This is where the NarSystem.jar class will be generated and is also the namespace used for the generated jni header-->
-				        <narSystemPackage>name.khoobyar.joe.gsspi</narSystemPackage>
-				        <linkCPP>false</linkCPP>
-				      </library>
-				    </libraries>
 				    <linker>
 				      <name>g++</name>
 				      <sysLibs>
 				        <sysLib>
-				          <!--we statically link to user32 because this has the MessageBox and Message Beep functions-->
 				          <name>user32</name>
 				          <type>static</type>
 				        </sysLib>
 				      </sysLibs>
-				    </linker>					
+				    </linker>
+				    <java>
+				    	<include>true</include>
+				    	<includePaths>
+				    		<includePath>include</includePath>
+				    		<includePath>include/win32</includePath>
+				    	</includePaths>
+				    </java>
+				    <cpp>
+				      <name>g++</name>
+				      <debug>true</debug>
+				      <includes>
+				      	<include>**/*.cpp</include>
+				      </includes>
+				    </cpp>
+				    <libraries>
+				      <library>
+				        <type>jni</type>
+				        <narSystemPackage>name.khoobyar.joe.gsspi</narSystemPackage>
+				        <linkCPP>false</linkCPP>
+				      </library>
+				    </libraries>
 				</configuration>
 			</plugin>
 		</plugins>
