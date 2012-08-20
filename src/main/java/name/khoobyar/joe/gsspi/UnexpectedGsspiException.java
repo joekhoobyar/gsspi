@@ -12,7 +12,4 @@ public class UnexpectedGsspiException
 	public UnexpectedGsspiException(String message) { super(message); }
 	public UnexpectedGsspiException(Throwable cause) { super(cause); }
 	public UnexpectedGsspiException(String message, Throwable cause) { super(message, cause); }
-	public UnexpectedGsspiException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 }

@@ -20,9 +20,6 @@ public class UnexpectedSspiException
 	public UnexpectedSspiException(String message) { super(message); }
 	public UnexpectedSspiException(Throwable cause) { super(cause); }
 	public UnexpectedSspiException(String message, Throwable cause) { super(message, cause); }
-	public UnexpectedSspiException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 	
 	public UnexpectedSspiException(String message, boolean formatLastError) {
 		super(formatLastError ? message : message+": "+formatMessageFromLastErrorCode (Kernel32.INSTANCE.GetLastError()));
