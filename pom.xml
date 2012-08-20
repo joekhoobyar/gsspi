@@ -83,6 +83,7 @@
 	  				<pushChanges>false</pushChanges>
 				  	<preparationGoals>clean install</preparationGoals>
 					<useReleaseProfile>true</useReleaseProfile>
+					<releaseProfiles>release-github</releaseProfiles>
   				</configuration>
   			</plugin>
   		</plugins>
@@ -90,7 +91,13 @@
   </build>
   <profiles>
   	<profile>
-      <id>release-profile</id>
+      <id>release-github</id>
+      <activation>
+      	<property>
+      	  <name>performRelease</name>
+      	  <value>true</value>
+      	</property>
+      </activation>
       <distributionManagement>
 	    <repository>
 	      <id>local-releases</id>
