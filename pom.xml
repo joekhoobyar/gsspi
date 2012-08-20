@@ -10,12 +10,44 @@
   	<maven.compiler.source>1.6</maven.compiler.source>
   	<maven.compiler.target>1.6</maven.compiler.target>
   </properties>
+  <url>http://github.com/joekhoobyar/gsspi</url>
   <scm>
 	<connection>scm:git:git@github.com:joekhoobyar/gsspi.git</connection>
 	<url>http://github.com/joekhoobyar/gsspi</url>
 	<developerConnection>scm:git:git@github.com:joekhoobyar/gsspi.git</developerConnection>
   </scm>
-  <url>http://github.com/joekhoobyar/gsspi</url>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>local-releases</id>
+      <url>file:///${basedir}/../maven-repo/releases/</url>
+    </snapshotRepository>
+    <repository>
+      <id>local-snapshots</id>
+      <url>file:///${basedir}/../maven-repo/snapshots/</url>
+    </repository>
+  </distributionManagement>
+  <repositories>
+  	<repository>
+        <id>github-releases</id>
+        <url>http://joekhoobyar.github.com/maven-repo/releases/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>        
+     </repository>
+     <repository>
+        <id>github-snapshots</id>
+        <url>http://joekhoobyar.github.com/maven-repo/snapshots/</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>        
+     </repository>
+  </repositories>
   <build>
   	<pluginManagement>
   		<plugins>
@@ -23,6 +55,11 @@
   				<groupId>org.apache.maven.plugins</groupId>
   				<artifactId>maven-compiler-plugin</artifactId>
   				<version>2.5.1</version>
+  			</plugin>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-deploy-plugin</artifactId>
+  				<version>2.7</version>
   			</plugin>
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
