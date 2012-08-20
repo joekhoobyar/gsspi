@@ -11,16 +11,19 @@
   	<maven.compiler.target>1.6</maven.compiler.target>
  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <url>http://github.com/joekhoobyar/gsspi</url>
+  <url>https://github.com/joekhoobyar/gsspi</url>
   <scm>
+	<url>https://github.com/joekhoobyar/gsspi</url>
 	<connection>scm:git:git@github.com:joekhoobyar/gsspi.git</connection>
-	<url>http://github.com/joekhoobyar/gsspi</url>
 	<developerConnection>scm:git:git@github.com:joekhoobyar/gsspi.git</developerConnection>
-    <tag>HEAD</tag>
   </scm>
+  <issueManagement>
+    <url>https://github.com/joekhoobyar/gsspi/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
   <developers>
     <developer>
-      <id>jkhoobyar</id>
+      <id>joekhoobyar</id>
       <email>joe@khoobyar.name</email>
       <name>Joe Khoobyar</name>
       <roles>
