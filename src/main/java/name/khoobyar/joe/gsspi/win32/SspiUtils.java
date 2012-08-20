@@ -233,6 +233,7 @@ public abstract class SspiUtils
 		int status = Secur32.INSTANCE.FreeCredentialsHandle (hCredentials);
 		if (status != SEC_E_OK && !ignoreFailures)
     		throw new UnexpectedSspiException ("SECUR32.FreeCredentialsHandle ", status);
+		hCredentials.clear ();
 	}
 	
 	/**
@@ -261,6 +262,7 @@ public abstract class SspiUtils
 		int status = Secur32.INSTANCE.DeleteSecurityContext (hContext);
 		if (status != SEC_E_OK && !ignoreFailures)
     		throw new UnexpectedSspiException ("SECUR32.DeleteSecurityContext", status);
+		hContext.clear ();
 	}
 
 	/**
