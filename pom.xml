@@ -121,35 +121,6 @@
 				<artifactId>maven-nar-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<linker>
-						<name>g++</name>
-						<options>
-							<option>-Wl,--add-stdcall-alias</option>
-						</options>
-						<sysLibs>
-							<sysLib>
-								<name>user32</name>
-								<type>static</type>
-							</sysLib>
-						</sysLibs>
-					</linker>
-					<java>
-						<include>true</include>
-						<includePaths>
-							<includePath>include</includePath>
-							<includePath>include/win32</includePath>
-						</includePaths>
-					</java>
-					<cpp>
-						<name>g++</name>
-						<debug>true</debug>
-						<includes>
-							<include>**/*.cpp</include>
-						</includes>
-						<defines>
-							<define>_JNI_IMPLEMENTATION_</define>
-						</defines>
-					</cpp>
 					<libraries>
 						<library>
 							<type>jni</type>
@@ -162,6 +133,53 @@
 		</plugins>
 	</build>
 	<profiles>
+		<profile>
+	      <id>Windows</id>
+	      <activation>
+	      	<os><family>windows</family></os>
+	      </activation>
+	      <build>
+	      	<pluginManagement>
+	      		<plugins>
+	      			<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<linker>
+								<name>g++</name>
+								<options>
+									<option>-Wl,--add-stdcall-alias</option>
+								</options>
+								<sysLibs>
+									<sysLib>
+										<name>user32</name>
+										<type>static</type>
+									</sysLib>
+								</sysLibs>
+							</linker>
+							<java>
+								<include>true</include>
+								<includePaths>
+									<includePath>include</includePath>
+									<includePath>include/win32</includePath>
+								</includePaths>
+							</java>
+							<cpp>
+								<name>g++</name>
+								<debug>true</debug>
+								<includes>
+									<include>**/*.cpp</include>
+								</includes>
+								<defines>
+									<define>_JNI_IMPLEMENTATION_</define>
+								</defines>
+							</cpp>
+						</configuration>
+	      			</plugin>
+	      		</plugins>
+	      	</pluginManagement>
+	      </build>
+	    </profile>
 		<profile>
 			<id>m2eclipse</id>
 			<activation>
