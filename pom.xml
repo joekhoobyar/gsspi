@@ -13,6 +13,7 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-nar.version>2.1-SNAPSHOT</maven-nar.version>
+		<skipTests>true</skipTests>
 		<maven.test.skip.exec>true</maven.test.skip.exec>
 	</properties>
 	<url>https://github.com/joekhoobyar/gsspi</url>
@@ -76,6 +77,12 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-nar-plugin</artifactId>
 					<version>${maven-nar.version}</version>
+					<extensions>true</extensions>
+					<configuration>
+						<type>jni</type>
+						<narSystemPackage>gsspi</narSystemPackage>
+						<linkCPP>false</linkCPP>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
