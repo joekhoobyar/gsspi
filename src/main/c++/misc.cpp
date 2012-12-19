@@ -1,4 +1,4 @@
-#include "name_khoobyar_joe_gsspi_Beeper.h"
+#include "name_khoobyar_joe_gsspi_win32_SspiBase.h"
 #include "Windows.h"
 
 JNIEXPORT jboolean JNICALL Java_name_khoobyar_joe_gsspi_win32_SspiBase_init(JNIEnv *env, jobject self) {
