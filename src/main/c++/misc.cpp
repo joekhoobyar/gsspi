@@ -1,17 +1,18 @@
-#include "name_khoobyar_joe_gsspi_Beeper.h"
-#include "Windows.h"
+#include "name_khoobyar_joe_gsspi_win32_SspiBase.h"
+#include <windows.h>
+#include <sspi.h>
+#include <ntdef.h>
 
-JNIEXPORT jboolean JNICALL Java_name_khoobyar_joe_gsspi_win32_SspiBase_init(JNIEnv *env, jobject self) {
+JNIEXPORT void JNICALL Java_name_khoobyar_joe_gsspi_win32_SspiBase_init(JNIEnv *env, jobject self) {
 	SECURITY_STATUS status;
 	ULONG oLength;
 	PSecPkgInfo oPackages;
 
 	status = EnumerateSecurityPackages (&oLength, &oPackages);
 	if (status != SEC_E_OK)
-		return JNI_FALSE;
+		return /* FIXME: throw something */;
 	SetLongField (env, self, (jlong) oLength);
 	FreeContextBuffer (oPackages);
-	return JNI_TRUE;
 }
 
 //MessageBeep(0);
