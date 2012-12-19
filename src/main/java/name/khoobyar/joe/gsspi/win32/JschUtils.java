@@ -1,7 +1,7 @@
 /**
  * Copyright 2008-2012 Joe Khoobyar.
  */
-package name.khoobyar.joe.jsch.sspi;
+package name.khoobyar.joe.gsspi.win32;
 
 import static com.sun.jna.platform.win32.W32Errors.SEC_E_OK;
 import static com.sun.jna.platform.win32.Sspi.SECBUFFER_EMPTY;
@@ -28,7 +28,7 @@ import com.sun.jna.win32.W32APIOptions;
  *
  * @author Joe Khoobyar
  */
-public class Utils {
+public class JschUtils {
 	private static Logger jschLogger;
 
 	static {

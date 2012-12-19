@@ -1,7 +1,7 @@
 /**
  * Copyright 2008-2012 Joe Khoobyar.
  */
-package name.khoobyar.joe.jsch;
+package name.khoobyar.joe.gsspi;
 
 import com.jcraft.jsch.JSch;
 
@@ -31,7 +31,7 @@ import com.jcraft.jsch.JSch;
  *
  * @author Joe Khoobyar
  */
-public class JSchSSPI
+public class JschGsspi
 	extends JSch
 {
 
@@ -39,7 +39,7 @@ public class JSchSSPI
 	 *	Simplest way to <em>create</em> a JSch instance that supports native Kerberos
 	 *	implementations on Windows XP or above.
 	 */
-	public JSchSSPI () {
+	public JschGsspi () {
 		super ();
 		configure (this);
 	}

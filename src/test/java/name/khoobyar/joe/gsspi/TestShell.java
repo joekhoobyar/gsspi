@@ -1,3 +1,5 @@
+package name.khoobyar.joe.gsspi;
+
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,9 +20,9 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
 
-import name.khoobyar.joe.gsspi.win32.JSchSSPI;
+import name.khoobyar.joe.gsspi.JschGsspi;
 
-public class Shell {
+public class TestShell {
 
 	public static void main(String[] arg) {
 
@@ -38,7 +40,7 @@ public class Shell {
 				public void log(int level, String message) { System.out.println(message); }
 			};
 
-			JSch jsch = new JSchSSPI ();
+			JSch jsch = new JschGsspi ();
 			jsch.setKnownHosts (home+File.separator+".ssh"+File.separator+"known_hosts");
 			JSch.setLogger (logger);
 			Session session = jsch.getSession (user, host, 22);

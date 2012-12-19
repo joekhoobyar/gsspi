@@ -1,7 +1,7 @@
 /**
  * Copyright 2008-2012. Joe Khoobyar. All Rights Reserved.
  */
-package name.khoobyar.joe.jsch.sspi;
+package name.khoobyar.joe.gsspi.win32;
 
 import static com.sun.jna.platform.win32.Secur32.*;
 import static com.sun.jna.platform.win32.Sspi.ISC_REQ_ALLOCATE_MEMORY;
@@ -39,9 +39,9 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.NativeLongByReference;
 import com.sun.jna.ptr.PointerByReference;
-import name.khoobyar.joe.jsch.sspi.Utils.Secur32.SecBufferDesc;
+import name.khoobyar.joe.gsspi.win32.JschUtils.Secur32.SecBufferDesc;
 
-public class GSSContextSSPI
+public class JschGsspiContext
 	implements com.jcraft.jsch.GSSContext
 {
 	//private SecPkgContext_Sizes sspiSizes;
@@ -62,11 +62,11 @@ public class GSSContextSSPI
 		Native.setProtected (true);
 	}
 
-	public GSSContextSSPI () {
+	public JschGsspiContext () {
 		for (SecurityPackage pkg : Secur32Util.getSecurityPackages())
 			if (pkg.name.equalsIgnoreCase ("Kerberos"))
 				return;
-	    Utils.assertUnchecked (SEC_E_SECPKG_NOT_FOUND, "GSSContextSSPI<init>");
+	    JschUtils.assertUnchecked (SEC_E_SECPKG_NOT_FOUND, "GSSContextSSPI<init>");
 	}
 
 	public void create (String user, String host) throws JSchException {
@@ -87,7 +87,7 @@ public class GSSContextSSPI
     	this.credName = this.credKrbName = null;
 
 		// Get the credentials handle.
-	    Utils.assertOk (
+	    JschUtils.assertOk (
 	    	Secur32.INSTANCE.AcquireCredentialsHandle (
 				null, "Kerberos", new NativeLong (SECPKG_CRED_OUTBOUND),
 				null, null, null, null, credHandle, credStamp
@@ -106,12 +106,12 @@ public class GSSContextSSPI
 		        	credName = credName.substring (i + 1);
 		        credKrbName = credName.replace ('@', '/');
 	    	} else {
-			    Utils.assertOk (Kernel32.INSTANCE.GetLastError (), "GetUserNameEx");
+			    JschUtils.assertOk (Kernel32.INSTANCE.GetLastError (), "GetUserNameEx");
 	    	}
 	    	
 	    	/*
 			names = new SecPkgContext_Names ();
-		    Utils.assertOk (
+		    JschUtils.assertOk (
 				API.QueryCredentialsAttributes (credHandle, new NativeLong (SECPKG_ATTR_NAMES), names),
 				"QueryCredentialsAttributes"
 			);
@@ -173,18 +173,18 @@ public class GSSContextSSPI
 	
 		// Get a security context and token.
 		try {
-			result = Utils.Secur32.INSTANCE.InitializeSecurityContext (
+			result = JschUtils.Secur32.INSTANCE.InitializeSecurityContext (
 				credHandle, prevHandle, serverKrbName,
 				// ISC_REQ_ALLOCATE_MEMORY | 
 				new NativeLong (ISC_REQ_DELEGATE | ISC_REQ_MUTUAL_AUTH | ISC_REQ_INTEGRITY),
 				new NativeLong (0), new NativeLong (SECURITY_NATIVE_DREP),
 				input, new NativeLong (0), ctxHandle, buffers, outputFlags, ctxStamp
 			);
-	    	String message = Utils.logAndDecode ("InitializeSecurityContext", result);
+	    	String message = JschUtils.logAndDecode ("InitializeSecurityContext", result);
 			if (result < 0)
 				throw new JSchException (message);
 		    if (SEC_I_COMPLETE_NEEDED == result || SEC_I_COMPLETE_AND_CONTINUE == result)
-		    	Utils.assertOk (Utils.Secur32.INSTANCE.CompleteAuthToken (ctxHandle, buffers), "CompleteAuthToken");
+		    	JschUtils.assertOk (JschUtils.Secur32.INSTANCE.CompleteAuthToken (ctxHandle, buffers), "CompleteAuthToken");
 			sspiState = new SSPIState (result, ctxHandle, ctxStamp, buffers.getBytes ());
 		}
 		
@@ -210,7 +210,7 @@ public class GSSContextSSPI
 			/*
 			SecBuffer buffer = buffers.at (0);
 			if (buffer.buffer != null)
-				Utils.assertOk (API.FreeContextBuffer (buffer.buffer), "FreeContextBuffer");
+				JschUtils.assertOk (API.FreeContextBuffer (buffer.buffer), "FreeContextBuffer");
 			*/
 		}
 		
@@ -224,7 +224,7 @@ public class GSSContextSSPI
 			/*
 			// Get information about sizes and lengths related to this transport.
 			sspiSizes = new SecPkgContext_Sizes ();
-			Utils.assertOk (
+			JschUtils.assertOk (
 				API.QueryContextAttributes (sspiState.handle, new NativeLong (SECPKG_ATTR_SIZES), sspiSizes),
 				"QueryContextAttributes(SECPKG_ATTR_SIZES)"
 			);
@@ -232,24 +232,24 @@ public class GSSContextSSPI
 			// Get the names of entities related to this connection.
 			SecPkgContext_Names names = new SecPkgContext_Names ();
 			try {
-				Utils.assertOk (
+				JschUtils.assertOk (
 					API.QueryContextAttributes (sspiState.handle, new NativeLong (SECPKG_ATTR_NAMES), names),
 					"QueryContextAttributes(SECPKG_ATTR_NAMES)"
 				);
 			}
 			finally {
-				Utils.assertOk (API.FreeContextBuffer (names.sUserName), "FreeContextBuffer");
+				JschUtils.assertOk (API.FreeContextBuffer (names.sUserName), "FreeContextBuffer");
 			}
 			SecPkgContext_NativeNames nnames = new SecPkgContext_NativeNames ();
 			try {
-				Utils.assertOk (
+				JschUtils.assertOk (
 					API.QueryContextAttributes (sspiState.handle, new NativeLong (SECPKG_ATTR_NATIVE_NAMES), nnames),
 					"QueryContextAttributes(SECPKG_ATTR_NATIVE_NAMES)"
 				);
 			}
 			finally {
-				Utils.assertOk (API.FreeContextBuffer (nnames.sClientName), "FreeContextBuffer");
-				Utils.assertOk (API.FreeContextBuffer (nnames.sServerName), "FreeContextBuffer");
+				JschUtils.assertOk (API.FreeContextBuffer (nnames.sClientName), "FreeContextBuffer");
+				JschUtils.assertOk (API.FreeContextBuffer (nnames.sServerName), "FreeContextBuffer");
 			}
 			*/
 			
@@ -257,7 +257,7 @@ public class GSSContextSSPI
 		}
 		
 		else if (sspiState.lastResult < 0) {
-			Utils.logAndDecode (Logger.ERROR, "SSPI - Last result", sspiState.lastResult);
+			JschUtils.logAndDecode (Logger.ERROR, "SSPI - Last result", sspiState.lastResult);
             throw new JSchException ("SSPI error " + sspiState.lastResult);
 		}
 
@@ -276,8 +276,8 @@ public class GSSContextSSPI
 		buffer.cbBuffer = new NativeLong (MAX_TOKEN_SIZE);
 		buffer.pvBuffer = new Memory (MAX_TOKEN_SIZE);
 		
-		Utils.assertUnchecked (sspiState.lastResult =
-			Utils.Secur32.INSTANCE.MakeSignature (contextHandle, new NativeLong (0), buffers, new NativeLong (0)),
+		JschUtils.assertUnchecked (sspiState.lastResult =
+			JschUtils.Secur32.INSTANCE.MakeSignature (contextHandle, new NativeLong (0), buffers, new NativeLong (0)),
 			"MakeSignature"
 		);
 	
