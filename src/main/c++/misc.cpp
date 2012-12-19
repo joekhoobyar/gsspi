@@ -1,7 +1,7 @@
 #include "name_khoobyar_joe_gsspi_Beeper.h"
 #include "Windows.h"
 
-JNIEXPORT jboolean JNICALL Java_name_khoobyar_joe_gsspi_win32_SecurityPackages(JNIEnv *env, jobject self) {
+JNIEXPORT jboolean JNICALL Java_name_khoobyar_joe_gsspi_win32_SspiBase_init(JNIEnv *env, jobject self) {
 	SECURITY_STATUS status;
 	ULONG oLength;
 	PSecPkgInfo oPackages;
