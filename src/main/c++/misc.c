@@ -1,10 +1,9 @@
-extern "C" {
-#include "name_khoobyar_joe_gsspi_win32_SspiBase.h"
-}
-#include <windows.h>
-#include <ntdef.h>
+#include "jni.h"
+#include "windows.h"
+#include "ntdef.h"
 #define SECURITY_WIN32
-#include <sspi.h>
+#include "sspi.h"
+#include "name_khoobyar_joe_gsspi_win32_SspiBase.h"
 
 JNIEXPORT void JNICALL Java_name_khoobyar_joe_gsspi_win32_SspiBase_init(JNIEnv *env, jobject self) {
 	jclass klass = GetObjectClass (env, self);

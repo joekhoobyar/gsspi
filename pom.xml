@@ -81,7 +81,7 @@
 					<configuration>
 						<type>jni</type>
 						<narSystemPackage>gsspi</narSystemPackage>
-						<linkCPP>false</linkCPP>
+						<linkCPP>true</linkCPP>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -132,7 +132,7 @@
 						<library>
 							<type>jni</type>
 							<narSystemPackage>name.khoobyar.joe.gsspi</narSystemPackage>
-							<linkCPP>false</linkCPP>
+							<linkCPP>true</linkCPP>
 						</library>
 					</libraries>
 				</configuration>
@@ -167,8 +167,10 @@
 							<java>
 								<include>true</include>
 								<includePaths>
-									<includePath>include</includePath>
-									<includePath>include/win32</includePath>
+									<includePath>/mingw/include</includePath>
+									<includePath>/mingw/include/win32</includePath>
+									<includePath>c:/java/jdk-6.0.34/include</includePath>
+									<includePath>c:/java/jdk-6.0.34/include/win32</includePath>
 								</includePaths>
 							</java>
 							<cpp>
@@ -176,6 +178,7 @@
 								<debug>true</debug>
 								<includes>
 									<include>**/*.cpp</include>
+									<include>**/*.c</include>
 								</includes>
 								<defines>
 									<define>_JNI_IMPLEMENTATION_</define>
